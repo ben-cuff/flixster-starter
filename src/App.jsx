@@ -8,6 +8,7 @@ import data from "./data/data";
 export default function App() {
 	const [movieData, setMovieData] = useState([]);
 	const [pagesLoaded, setPagesLoaded] = useState(1);
+	const [defaultState, setDefaultState] = useState([]);
 
 	useEffect(() => {
 		(async () => {
@@ -28,6 +29,7 @@ export default function App() {
 					.catch((err) => console.error(err));
 
 				setMovieData(data.results);
+				setDefaultState(data.results);
 			} catch (error) {
 				console.error(error);
 			}
@@ -53,10 +55,42 @@ export default function App() {
 				const data = await response.json();
 
 				setMovieData([...movieData, ...data.results]);
+				setDefaultState([...movieData, ...data.results]);
 			} catch (error) {
 				console.error(error);
 			}
 		})();
+	};
+
+	const handleSortByChange = (event) => {
+		const sortBy = event.target.value;
+		console.log(defaultState);
+
+		if (sortBy == "title") {
+			const sortedMovies = [...movieData].sort((a, b) =>
+				a.title.localeCompare(b.title)
+			);
+			setMovieData(sortedMovies);
+		} else if (sortBy == "rating") {
+			const sortedMovies = [...movieData].sort(
+				(a, b) => b.vote_average - a.vote_average
+			);
+			setMovieData(sortedMovies);
+		} else if (sortBy == "release") {
+			const referenceDate = new Date("2025-04-04");
+			const sortedMovies = [...movieData].sort((a, b) => {
+				const diffA = Math.abs(
+					new Date(a.release_date) - referenceDate
+				);
+				const diffB = Math.abs(
+					new Date(b.release_date) - referenceDate
+				);
+				return diffA - diffB;
+			});
+			setMovieData(sortedMovies);
+		} else {
+			setMovieData(defaultState);
+		}
 	};
 
 	return (
@@ -67,7 +101,7 @@ export default function App() {
 				</div>
 				<div className="search-container">
 					<SearchBar />
-					<SortBy />
+					<SortBy handleSortByChange={handleSortByChange} />
 				</div>
 			</header>
 			<main>
