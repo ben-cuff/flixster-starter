@@ -11,7 +11,7 @@ export default function App() {
 	useEffect(() => {
 		(async () => {
 			try {
-				const apiKey = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
+				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
 
 				await fetch(
 					"https://api.themoviedb.org/3/movie/now_playing?language=en-US?page=1",
@@ -20,7 +20,7 @@ export default function App() {
 						headers: {
 							accept: "application/json",
 
-							Authorization: `Bearer ${apiKey}`,
+							Authorization: `Bearer ${accessToken}`,
 						},
 					}
 				)
