@@ -6,7 +6,8 @@ import SortBy from "./components/sort-by";
 import data from "./data/data";
 
 export default function App() {
-	const [movieData, setMovieData] = useState();
+	const [movieData, setMovieData] = useState([]);
+	const [pagesLoaded, setPagesLoaded] = useState(1);
 
 	useEffect(() => {
 		(async () => {
@@ -14,12 +15,11 @@ export default function App() {
 				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
 
 				await fetch(
-					"https://api.themoviedb.org/3/movie/now_playing?language=en-US?page=1",
+					"https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
 					{
 						method: "GET",
 						headers: {
 							accept: "application/json",
-
 							Authorization: `Bearer ${accessToken}`,
 						},
 					}
@@ -34,6 +34,31 @@ export default function App() {
 		})();
 	}, []);
 
+	const handleLoadMore = () => {
+		(async () => {
+			try {
+				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
+				setPagesLoaded(pagesLoaded + 1);
+				const response = await fetch(
+					`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${pagesLoaded}`,
+					{
+						method: "GET",
+						headers: {
+							accept: "application/json",
+							Authorization: `Bearer ${accessToken}`,
+						},
+					}
+				);
+
+				const data = await response.json();
+
+				setMovieData([...movieData, ...data.results]);
+			} catch (error) {
+				console.error(error);
+			}
+		})();
+	};
+
 	return (
 		<div className="app">
 			<header className="app-header">
@@ -46,8 +71,8 @@ export default function App() {
 				</div>
 			</header>
 			<main>
-        <MovieList movieData={movieData} />
-        <button>Load More</button>
+				<MovieList movieData={movieData} />
+				<button onClick={handleLoadMore}>Load More</button>
 			</main>
 		</div>
 	);
