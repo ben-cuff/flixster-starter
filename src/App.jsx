@@ -46,7 +46,8 @@ export default function App() {
 				</div>
 			</header>
 			<main>
-				<MovieList movieData={movieData} />
+        <MovieList movieData={movieData} />
+        <button>Load More</button>
 			</main>
 		</div>
 	);
