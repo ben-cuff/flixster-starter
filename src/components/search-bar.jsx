@@ -1,16 +1,18 @@
-import { useState } from "react";
+import propTypes from "prop-types";
 import "./search-bar.css";
 
-export default function SearchBar() {
-	const [searchInput, setSearchInput] = useState("");
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		setSearchInput("");
-	};
-
+export default function SearchBar({
+	setSearchInput,
+	searchInput,
+	handleSubmit,
+}) {
 	return (
-		<form onSubmit={handleSubmit}>
+		<form
+			onSubmit={(event) => {
+				event.preventDefault();
+				handleSubmit();
+			}}
+		>
 			<input
 				placeholder="Search for movies"
 				value={searchInput}
@@ -28,3 +30,9 @@ export default function SearchBar() {
 		</form>
 	);
 }
+
+SearchBar.propTypes = {
+	setSearchInput: propTypes.func.isRequired,
+	searchInput: propTypes.string.isRequired,
+	handleSubmit: propTypes.func.isRequired,
+};

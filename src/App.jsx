@@ -9,6 +9,7 @@ export default function App() {
 	const [movieData, setMovieData] = useState([]);
 	const [pagesLoaded, setPagesLoaded] = useState(1);
 	const [defaultState, setDefaultState] = useState([]);
+	const [searchInput, setSearchInput] = useState("");
 
 	useEffect(() => {
 		(async () => {
@@ -93,6 +94,33 @@ export default function App() {
 		}
 	};
 
+	const handleSearchSubmit = () => {
+		(async () => {
+			try {
+				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
+				setPagesLoaded(1);
+				const formattedSearchInput = searchInput.split(" ").join("+");
+				const response = await fetch(
+					`https://api.themoviedb.org/3/search/movie?query=${formattedSearchInput}`,
+					{
+						method: "GET",
+						headers: {
+							accept: "application/json",
+							Authorization: `Bearer ${accessToken}`,
+						},
+					}
+				);
+
+				const data = await response.json();
+
+				setMovieData(data.results);
+				setDefaultState(data.results);
+			} catch (error) {
+				console.error(error);
+			}
+		})();
+	};
+
 	return (
 		<div className="app">
 			<header className="app-header">
@@ -100,7 +128,11 @@ export default function App() {
 					<h1>🎥 Flixster 🎬</h1>
 				</div>
 				<div className="search-container">
-					<SearchBar />
+					<SearchBar
+						handleSubmit={handleSearchSubmit}
+						searchInput={searchInput}
+						setSearchInput={setSearchInput}
+					/>
 					<SortBy handleSortByChange={handleSortByChange} />
 				</div>
 			</header>
