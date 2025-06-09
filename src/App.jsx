@@ -37,6 +37,7 @@ export default function App() {
 			);
 
 			const data = await response.json();
+
 			const enrichedResults = data.results.map((movie) => ({
 				...movie,
 				liked: false,
@@ -112,6 +113,12 @@ export default function App() {
 		})();
 	};
 
+	const handleClear = () => {
+		setSearchInput("");
+		fetchMovies(1);
+		setPagesLoaded(2);
+	};
+
 	return (
 		<div className="app">
 			<header className="app-header">
@@ -123,6 +130,7 @@ export default function App() {
 						handleSubmit={handleSearchSubmit}
 						searchInput={searchInput}
 						setSearchInput={setSearchInput}
+						handleClear={handleClear}
 					/>
 					<SortBy handleSortByChange={handleSortByChange} />
 				</div>
