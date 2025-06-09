@@ -1,12 +1,28 @@
 import propTypes from "prop-types";
+import { useEffect, useState } from "react";
 import MovieCard from "./movie-card";
 import "./movie-list.css";
 
-export default function MovieList({ movieData, setMovieData }) {
+export default function MovieList({ movieData, setMovieData, curPage }) {
+	const [filteredMovieData, setFilteredMovieData] = useState([]);
+
+	useEffect(() => {
+		const movieDataCopy = [...movieData];
+		if (curPage === "liked") {
+			setFilteredMovieData(movieDataCopy.filter((movie) => movie.liked));
+		} else if (curPage === "watched") {
+			setFilteredMovieData(
+				movieDataCopy.filter((movie) => movie.watched)
+			);
+		} else {
+			setFilteredMovieData(movieDataCopy);
+		}
+	}, [movieData, curPage]);
+
 	return (
 		<div className="movie-card-container">
-			{movieData ? (
-				movieData.map((movie) => (
+			{filteredMovieData ? (
+				filteredMovieData.map((movie) => (
 					<MovieCard
 						key={movie.id}
 						movie={movie}
@@ -23,4 +39,5 @@ export default function MovieList({ movieData, setMovieData }) {
 MovieList.propTypes = {
 	movieData: propTypes.arrayOf(propTypes.object),
 	setMovieData: propTypes.func.isRequired,
+	curPage: propTypes.string.isRequired,
 };

@@ -10,6 +10,7 @@ export default function App() {
 	const [defaultState, setDefaultState] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [curPage, setCurPage] = useState("home");
+	const [toggleSidebar, setToggleSidebar] = useState(false);
 
 	useEffect(() => {
 		(async () => {
@@ -145,12 +146,29 @@ export default function App() {
 					/>
 					<SortBy handleSortByChange={handleSortByChange} />
 				</div>
+				<div
+					onClick={() => {
+						setToggleSidebar(!toggleSidebar);
+					}}
+					style={{ marginRight: "auto", fontSize: "30px" }}
+				>
+					{toggleSidebar ? "x" : "☰"}
+				</div>
 			</header>
-			<aside className="app-sidebar">
+			<aside
+				className="app-sidebar"
+				style={{
+					transform: toggleSidebar
+						? "translateX(0)"
+						: "translateX(-100%)",
+					transition: "transform 0.3s ease-in-out",
+				}}
+			>
 				<nav>
 					<span
 						onClick={() => {
 							setCurPage("home");
+							setToggleSidebar(!toggleSidebar);
 						}}
 						style={{
 							textDecoration:
@@ -162,6 +180,7 @@ export default function App() {
 					<span
 						onClick={() => {
 							setCurPage("watched");
+							setToggleSidebar(!toggleSidebar);
 						}}
 						style={{
 							textDecoration:
@@ -173,6 +192,7 @@ export default function App() {
 					<span
 						onClick={() => {
 							setCurPage("liked");
+							setToggleSidebar(!toggleSidebar);
 						}}
 						style={{
 							textDecoration:
@@ -184,7 +204,11 @@ export default function App() {
 				</nav>
 			</aside>
 			<main>
-				<MovieList movieData={movieData} setMovieData={setMovieData} />
+				<MovieList
+					curPage={curPage}
+					movieData={movieData}
+					setMovieData={setMovieData}
+				/>
 				<button onClick={handleLoadMore}>Load More</button>
 			</main>
 			<footer className="app-footer"></footer>
