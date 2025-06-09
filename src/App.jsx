@@ -6,73 +6,53 @@ import SortBy from "./components/sort-by";
 
 export default function App() {
 	const [movieData, setMovieData] = useState([]);
-	const [pagesLoaded, setPagesLoaded] = useState(1);
+	const [pagesLoaded, setPagesLoaded] = useState(2);
 	const [defaultState, setDefaultState] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [curPage, setCurPage] = useState("home");
 	const [toggleSidebar, setToggleSidebar] = useState(false);
 
 	useEffect(() => {
-		(async () => {
-			try {
-				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
-				const response = await fetch(
-					"https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-					{
-						method: "GET",
-						headers: {
-							accept: "application/json",
-							Authorization: `Bearer ${accessToken}`,
-						},
-					}
-				);
-
-				const data = await response.json();
-
-				const enrichedResults = data.results.map((movie) => ({
-					...movie,
-					liked: false,
-					watched: false,
-				}));
-
-				setMovieData(enrichedResults);
-				setDefaultState(enrichedResults);
-			} catch (error) {
-				console.error(error);
-			}
-		})();
+		fetchMovies(1);
 	}, []);
 
 	const handleLoadMore = () => {
-		(async () => {
-			try {
-				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
-				setPagesLoaded(pagesLoaded + 1);
-				const response = await fetch(
-					`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${pagesLoaded}`,
-					{
-						method: "GET",
-						headers: {
-							accept: "application/json",
-							Authorization: `Bearer ${accessToken}`,
-						},
-					}
-				);
+		fetchMovies(pagesLoaded, true);
+		const nextPage = pagesLoaded + 1;
+		setPagesLoaded(nextPage);
+	};
 
-				const data = await response.json();
+	const fetchMovies = async (page, append = false) => {
+		try {
+			const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
+			const response = await fetch(
+				`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`,
+				{
+					method: "GET",
+					headers: {
+						accept: "application/json",
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
 
-				const enrichedResults = data.results.map((movie) => ({
-					...movie,
-					liked: false,
-					watched: false,
-				}));
+			const data = await response.json();
+			const enrichedResults = data.results.map((movie) => ({
+				...movie,
+				liked: false,
+				watched: false,
+			}));
 
-				setMovieData([...movieData, ...enrichedResults]);
-				setDefaultState([...movieData, ...enrichedResults]);
-			} catch (error) {
-				console.error(error);
+			if (append) {
+				setMovieData((prev) => [...prev, ...enrichedResults]);
+				setDefaultState((prev) => [...prev, ...enrichedResults]);
+			} else {
+				setMovieData(enrichedResults);
+				setDefaultState(enrichedResults);
 			}
-		})();
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const handleSortByChange = (event) => {
