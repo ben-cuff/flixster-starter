@@ -56,12 +56,6 @@ export default function MovieModal({ setToggleModal, movie }) {
 		})();
 	}, [movie]);
 
-	const genres = movie.genre_ids.map((genre_id) => {
-		return GENRES_LIST.filter((genre) => {
-			return genre.id === genre_id;
-		});
-	});
-
 	return (
 		<div className="overlay-style">
 			<div className="modal-style">
@@ -69,13 +63,8 @@ export default function MovieModal({ setToggleModal, movie }) {
 				<img
 					src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
 					alt={`${movie.title} backdrop`}
-					style={{
-						width: "100%",
-						borderRadius: "8px",
-						marginBottom: "15px",
-					}}
 				/>
-				<ul style={{ listStyle: "none", padding: 0 }}>
+				<ul>
 					<li>
 						<strong>Runtime:</strong> {movieDetails.runtime} minutes
 					</li>
