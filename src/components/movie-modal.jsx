@@ -87,16 +87,21 @@ export default function MovieModal({ setToggleModal, movie }) {
 					</li>
 					<li>
 						<strong>Genres:</strong>{" "}
-						{genres.map((genreArray, index) => (
-							<span key={index}>
-								{genreArray[0].name}
-								{index < genres.length - 1 ? ", " : ""}
-							</span>
-						))}
+						{movie.genre_ids
+							.map((genre_id) => {
+								const genre = GENRES_LIST.find(
+									(g) => g.id === genre_id
+								);
+								return genre ? genre.name : "N/A";
+							})
+							.join(", ")}
 					</li>
 				</ul>
 				<p>{movie.overview}</p>
-				<YouTube videoId={movieVideo} />
+				<YouTube
+					videoId={movieVideo}
+					opts={{ width: "300", height: "200" }}
+				/>
 				<button
 					onClick={() => {
 						setToggleModal(false);

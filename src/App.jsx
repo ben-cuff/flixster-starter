@@ -27,8 +27,14 @@ export default function App() {
 
 				const data = await response.json();
 
-				setMovieData(data.results);
-				setDefaultState(data.results);
+				const enrichedResults = data.results.map((movie) => ({
+					...movie,
+					liked: false,
+					watched: false,
+				}));
+
+				setMovieData(enrichedResults);
+				setDefaultState(enrichedResults);
 			} catch (error) {
 				console.error(error);
 			}
@@ -53,8 +59,14 @@ export default function App() {
 
 				const data = await response.json();
 
-				setMovieData([...movieData, ...data.results]);
-				setDefaultState([...movieData, ...data.results]);
+				const enrichedResults = data.results.map((movie) => ({
+					...movie,
+					liked: false,
+					watched: false,
+				}));
+
+				setMovieData([...movieData, ...enrichedResults]);
+				setDefaultState([...movieData, ...enrichedResults]);
 			} catch (error) {
 				console.error(error);
 			}
@@ -63,7 +75,6 @@ export default function App() {
 
 	const handleSortByChange = (event) => {
 		const sortBy = event.target.value;
-		console.log(defaultState);
 
 		if (sortBy == "title") {
 			const sortedMovies = [...movieData].sort((a, b) =>
@@ -135,7 +146,7 @@ export default function App() {
 				</div>
 			</header>
 			<main>
-				<MovieList movieData={movieData} />
+				<MovieList movieData={movieData} setMovieData={setMovieData} />
 				<button onClick={handleLoadMore}>Load More</button>
 			</main>
 			<footer className="app-footer"></footer>
