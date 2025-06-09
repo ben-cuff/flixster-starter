@@ -25,3 +25,19 @@
 	height: 100px;
 	margin-top: 20px;
 }
+
+.app-sidebar {
+	background-color: #f0f0f0;
+	padding: 20px;
+	width: 250px;
+	height: 100vh;
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+span {
+}
+
+span:hover {
+	font-weight: bold;
+	cursor: pointer;
+}

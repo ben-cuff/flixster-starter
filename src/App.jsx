@@ -9,6 +9,7 @@ export default function App() {
 	const [pagesLoaded, setPagesLoaded] = useState(1);
 	const [defaultState, setDefaultState] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
+	const [curPage, setCurPage] = useState("home");
 
 	useEffect(() => {
 		(async () => {
@@ -145,6 +146,43 @@ export default function App() {
 					<SortBy handleSortByChange={handleSortByChange} />
 				</div>
 			</header>
+			<aside className="app-sidebar">
+				<nav>
+					<span
+						onClick={() => {
+							setCurPage("home");
+						}}
+						style={{
+							textDecoration:
+								curPage === "home" ? "underline" : "none",
+						}}
+					>
+						Home
+					</span>
+					<span
+						onClick={() => {
+							setCurPage("watched");
+						}}
+						style={{
+							textDecoration:
+								curPage === "watched" ? "underline" : "none",
+						}}
+					>
+						Watched
+					</span>
+					<span
+						onClick={() => {
+							setCurPage("liked");
+						}}
+						style={{
+							textDecoration:
+								curPage === "liked" ? "underline" : "none",
+						}}
+					>
+						Liked
+					</span>
+				</nav>
+			</aside>
 			<main>
 				<MovieList movieData={movieData} setMovieData={setMovieData} />
 				<button onClick={handleLoadMore}>Load More</button>
