@@ -138,6 +138,7 @@ export default function App() {
 				<MovieList movieData={movieData} />
 				<button onClick={handleLoadMore}>Load More</button>
 			</main>
+			<footer className="app-footer"></footer>
 		</div>
 	);
 }
