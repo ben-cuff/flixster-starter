@@ -21,15 +21,17 @@
 
 .app-footer {
 	background-color: #20232a;
-	padding: 15px;
-	height: 200px;
-	margin-top: 20px;
+	padding: 25px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
 }
 
 .app-sidebar {
 	position: absolute;
 	left: 0;
-	top: 184px;
+	top: 19%;
 	background-color: #f0f0f0;
 	padding: 20px;
 	width: 150px;

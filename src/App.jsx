@@ -97,7 +97,7 @@ export default function App() {
 				const diffB = Math.abs(
 					new Date(b.release_date) - referenceDate
 				);
-				return diffA - diffB;
+				return diffB - diffA;
 			});
 			setMovieData(sortedMovies);
 		} else {

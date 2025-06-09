@@ -21,7 +21,7 @@ export default function MovieList({ movieData, setMovieData, curPage }) {
 
 	return (
 		<div className="movie-card-container">
-			{filteredMovieData ? (
+			{filteredMovieData.length > 0 ? (
 				filteredMovieData.map((movie) => (
 					<MovieCard
 						key={movie.id}
@@ -30,7 +30,7 @@ export default function MovieList({ movieData, setMovieData, curPage }) {
 					/>
 				))
 			) : (
-				<h3>Loading...</h3>
+				<h3>No movies to display</h3>
 			)}
 		</div>
 	);
