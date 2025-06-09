@@ -41,7 +41,6 @@ export default function MovieModal({ setToggleModal, movie }) {
 					responseVideo.json(),
 				]);
 
-				console.log(dataVideo);
 				if (dataVideo.results && dataVideo.results.length > 0) {
 					const trailer = dataVideo.results.find(
 						(video) => video.type === "Trailer"
@@ -62,8 +61,6 @@ export default function MovieModal({ setToggleModal, movie }) {
 			return genre.id === genre_id;
 		});
 	});
-
-	console.log(genres);
 
 	return (
 		<div className="overlay-style">
