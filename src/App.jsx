@@ -3,7 +3,6 @@ import "./App.css";
 import MovieList from "./components/movie-list";
 import SearchBar from "./components/search-bar";
 import SortBy from "./components/sort-by";
-import data from "./data/data";
 
 export default function App() {
 	const [movieData, setMovieData] = useState([]);
@@ -15,8 +14,7 @@ export default function App() {
 		(async () => {
 			try {
 				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
-
-				await fetch(
+				const response = await fetch(
 					"https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
 					{
 						method: "GET",
@@ -25,9 +23,9 @@ export default function App() {
 							Authorization: `Bearer ${accessToken}`,
 						},
 					}
-				)
-					.then(async (res) => await res.json())
-					.catch((err) => console.error(err));
+				);
+
+				const data = await response.json();
 
 				setMovieData(data.results);
 				setDefaultState(data.results);
