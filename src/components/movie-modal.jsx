@@ -1,5 +1,6 @@
 import propTypes from "prop-types";
 import { useEffect, useState } from "react";
+import YouTube from "react-youtube";
 import GENRES_LIST from "../contants/genres";
 import "./movie-modal.css";
 
@@ -42,7 +43,9 @@ export default function MovieModal({ setToggleModal, movie }) {
 
 				console.log(dataVideo);
 				if (dataVideo.results && dataVideo.results.length > 0) {
-					const trailer = dataVideo.results.find(video => video.type === "Trailer");
+					const trailer = dataVideo.results.find(
+						(video) => video.type === "Trailer"
+					);
 					if (trailer) {
 						setMovieVideo(trailer.key);
 					}
@@ -93,6 +96,7 @@ export default function MovieModal({ setToggleModal, movie }) {
 					</li>
 				</ul>
 				<p>{movie.overview}</p>
+				<YouTube videoId={movieVideo} />
 				<button
 					onClick={() => {
 						setToggleModal(false);
