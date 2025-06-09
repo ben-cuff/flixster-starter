@@ -1,8 +1,59 @@
 import propTypes from "prop-types";
+import { useEffect, useState } from "react";
 import GENRES_LIST from "../contants/genres";
 import "./movie-modal.css";
 
 export default function MovieModal({ setToggleModal, movie }) {
+	const [movieDetails, setMovieDetails] = useState([]);
+	const [movieVideo, setMovieVideo] = useState("");
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
+
+				const [responseDetails, responseVideo] = await Promise.all([
+					fetch(
+						`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`,
+						{
+							method: "GET",
+							headers: {
+								accept: "application/json",
+								Authorization: `Bearer ${accessToken}`,
+							},
+						}
+					),
+					fetch(
+						`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`,
+						{
+							method: "GET",
+							headers: {
+								accept: "application/json",
+								Authorization: `Bearer ${accessToken}`,
+							},
+						}
+					),
+				]);
+
+				const [dataDetails, dataVideo] = await Promise.all([
+					responseDetails.json(),
+					responseVideo.json(),
+				]);
+
+				console.log(dataVideo);
+				if (dataVideo.results && dataVideo.results.length > 0) {
+					const trailer = dataVideo.results.find(video => video.type === "Trailer");
+					if (trailer) {
+						setMovieVideo(trailer.key);
+					}
+				}
+				setMovieDetails(dataDetails);
+			} catch (error) {
+				console.error(error);
+			}
+		})();
+	}, [movie]);
+
 	const genres = movie.genre_ids.map((genre_id) => {
 		return GENRES_LIST.filter((genre) => {
 			return genre.id === genre_id;
@@ -26,7 +77,7 @@ export default function MovieModal({ setToggleModal, movie }) {
 				/>
 				<ul style={{ listStyle: "none", padding: 0 }}>
 					<li>
-						<strong>Runtime:</strong> {movie.runtime} minutes
+						<strong>Runtime:</strong> {movieDetails.runtime} minutes
 					</li>
 					<li>
 						<strong>Release Date:</strong> {movie.release_date}
