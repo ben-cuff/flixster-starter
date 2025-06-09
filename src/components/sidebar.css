@@ -1,0 +1,15 @@
+.app-sidebar {
+	position: absolute;
+	left: 0;
+	top: 19%;
+	background-color: #f0f0f0;
+	padding: 20px;
+	width: 150px;
+	height: 100vh;
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+}
+
+span:hover {
+	cursor: pointer;
+}

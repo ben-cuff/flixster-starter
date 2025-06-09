@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import MovieList from "./components/movie-list";
 import SearchBar from "./components/search-bar";
+import Sidebar from "./components/sidebar";
 import SortBy from "./components/sort-by";
 
 export default function App() {
@@ -143,54 +144,12 @@ export default function App() {
 					{toggleSidebar ? "x" : "☰"}
 				</div>
 			</header>
-			<aside
-				className="app-sidebar"
-				style={{
-					transform: toggleSidebar
-						? "translateX(0)"
-						: "translateX(-100%)",
-					transition: "transform 0.3s ease-in-out",
-				}}
-			>
-				<nav>
-					<span
-						onClick={() => {
-							setCurPage("home");
-							setToggleSidebar(!toggleSidebar);
-						}}
-						style={{
-							textDecoration:
-								curPage === "home" ? "underline" : "none",
-						}}
-					>
-						Home
-					</span>
-					<span
-						onClick={() => {
-							setCurPage("watched");
-							setToggleSidebar(!toggleSidebar);
-						}}
-						style={{
-							textDecoration:
-								curPage === "watched" ? "underline" : "none",
-						}}
-					>
-						Watched
-					</span>
-					<span
-						onClick={() => {
-							setCurPage("liked");
-							setToggleSidebar(!toggleSidebar);
-						}}
-						style={{
-							textDecoration:
-								curPage === "liked" ? "underline" : "none",
-						}}
-					>
-						Liked
-					</span>
-				</nav>
-			</aside>
+			<Sidebar
+				toggleSidebar={toggleSidebar}
+				curPage={curPage}
+				setToggleSidebar={setToggleSidebar}
+				setCurPage={setCurPage}
+			/>
 			<main>
 				<MovieList
 					curPage={curPage}
