@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
-import GENRES_LIST from "../contants/genres";
+import GENRES_MAP from "../constants/genres";
 import "./movie-modal.css";
 
 export default function MovieModal({ setToggleModal, movie }) {
@@ -75,10 +75,7 @@ export default function MovieModal({ setToggleModal, movie }) {
 						<strong>Genres:</strong>{" "}
 						{movie.genre_ids
 							.map((genre_id) => {
-								const genre = GENRES_LIST.find(
-									(g) => g.id === genre_id
-								);
-								return genre ? genre.name : "N/A";
+								return GENRES_MAP[genre_id] || "N/A";
 							})
 							.join(", ")}
 					</li>
