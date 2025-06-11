@@ -32,3 +32,9 @@
 main {
 	margin-bottom: 80px;
 }
+
+.toggle-sidebar {
+	margin-right: auto;
+	font-size: 30px;
+	cursor: pointer;
+}

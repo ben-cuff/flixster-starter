@@ -136,7 +136,7 @@ export default function App() {
 					onClick={() => {
 						setToggleSidebar(!toggleSidebar);
 					}}
-					style={{ marginRight: "auto", fontSize: "30px" }}
+					className="toggle-sidebar"
 				>
 					{toggleSidebar ? "x" : "☰"}
 				</div>
