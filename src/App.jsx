@@ -71,15 +71,11 @@ export default function App() {
 			);
 			setMovieData(sortedMovies);
 		} else if (sortBy == "release") {
-			const referenceDate = new Date("2025-04-04");
 			const sortedMovies = [...movieData].sort((a, b) => {
-				const diffA = Math.abs(
-					new Date(a.release_date) - referenceDate
+				return (
+					new Date(b.release_date).getTime() -
+					new Date(a.release_date).getTime()
 				);
-				const diffB = Math.abs(
-					new Date(b.release_date) - referenceDate
-				);
-				return diffB - diffA;
 			});
 			setMovieData(sortedMovies);
 		} else {
