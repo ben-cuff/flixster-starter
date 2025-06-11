@@ -87,7 +87,7 @@ export default function App() {
 		(async () => {
 			try {
 				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
-				setPagesLoaded(1);
+				setNextPage(1);
 				const formattedSearchInput = searchInput.split(" ").join("+");
 				const response = await fetch(
 					`https://api.themoviedb.org/3/search/movie?query=${formattedSearchInput}`,
