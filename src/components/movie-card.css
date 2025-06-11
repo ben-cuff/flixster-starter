@@ -4,6 +4,7 @@
 	overflow: hidden;
 	margin: 5px;
 	border-radius: 5px;
+	min-width: 300px;
 }
 
 .movie-card:hover {
@@ -29,7 +30,7 @@ h4 {
 
 p {
 	font-weight: normal;
-	font-size: 0.5em;
+	font-size: 0.7em;
 	margin-bottom: 5px;
 }
 
@@ -41,8 +42,8 @@ span {
 }
 
 .icon-img img {
-	width: 24px;
-	height: 24px;
+	width: 40px;
+	height: 32px;
 }
 
 .icon-img img:hover {
