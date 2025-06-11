@@ -54,7 +54,7 @@ export default function MovieModal({ setToggleModal, movie }) {
 				console.error(error);
 			}
 		})();
-	}, [movie]);
+	}, [movie.id]);
 
 	return (
 		<div className="overlay-style">
