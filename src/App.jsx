@@ -7,7 +7,7 @@ import SortBy from "./components/sort-by";
 
 export default function App() {
 	const [movieData, setMovieData] = useState([]);
-	const [pagesLoaded, setPagesLoaded] = useState(2);
+	const [nextPage, setNextPage] = useState(2);
 	const [defaultState, setDefaultState] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [curPage, setCurPage] = useState("home");
@@ -18,9 +18,9 @@ export default function App() {
 	}, []);
 
 	const handleLoadMore = () => {
-		fetchMovies(pagesLoaded, true);
-		const nextPage = pagesLoaded + 1;
-		setPagesLoaded(nextPage);
+		fetchMovies(nextPage, true);
+		const newNextPage = nextPage + 1;
+		setNextPage(newNextPage);
 	};
 
 	const fetchMovies = async (page, append = false) => {
@@ -114,7 +114,7 @@ export default function App() {
 		setSearchInput("");
 		document.getElementById("sort-by-select").value = "default";
 		fetchMovies(1);
-		setPagesLoaded(2);
+		setNextPage(2);
 	};
 
 	return (
