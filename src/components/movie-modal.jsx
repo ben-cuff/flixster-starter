@@ -64,26 +64,26 @@ export default function MovieModal({ setToggleModal, movie }) {
 					src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
 					alt={`${movie.title} backdrop`}
 				/>
-				<ul>
-					<li>
+				<div className="movie-details">
+					<div>
 						<strong>Runtime:</strong> {movieDetails.runtime} minutes
-					</li>
-					<li>
+					</div>
+					<div>
 						<strong>Release Date:</strong> {movie.release_date}
-					</li>
-					<li>
+					</div>
+					<div>
 						<strong>Genres:</strong>{" "}
 						{movie.genre_ids
 							.map((genre_id) => {
 								return GENRES_MAP[genre_id] || "N/A";
 							})
 							.join(", ")}
-					</li>
-				</ul>
+					</div>
+				</div>
 				<p>{movie.overview}</p>
 				<YouTube
 					videoId={movieVideo}
-					opts={{ width: "300", height: "200" }}
+					opts={{ width: "420", height: "236" }}
 				/>
 				<button
 					onClick={() => {
