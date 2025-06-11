@@ -116,6 +116,7 @@ export default function App() {
 
 	const handleClear = () => {
 		setSearchInput("");
+		document.getElementById("sort-by-select").value = "default";
 		fetchMovies(1);
 		setPagesLoaded(2);
 	};

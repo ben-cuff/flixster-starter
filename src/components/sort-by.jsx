@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 export default function SortBy({ handleSortByChange }) {
 	return (
 		<select
+			id="sort-by-select"
 			onChange={(event) => {
 				handleSortByChange(event);
 			}}
