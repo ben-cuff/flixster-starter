@@ -13,12 +13,8 @@ export default function MovieModal({ setToggleModal, movie }) {
 		(async () => {
 			try {
 				const [dataDetails, dataVideo] = await Promise.all([
-					movieApi.getMovieDetails(
-						`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`
-					),
-					movieApi.getMovieVideos(
-						`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`
-					),
+					movieApi.getMovieDetails(movie.id),
+					movieApi.getMovieVideos(movie.id),
 				]);
 
 				if (dataVideo.results && dataVideo.results.length > 0) {

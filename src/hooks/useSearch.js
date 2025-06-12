@@ -10,9 +10,7 @@ export function useSearch(setNextPage, setMovieData) {
 				setNextPage(1);
 				const formattedSearchInput = searchInput.split(" ").join("+");
 
-				const data = await movieApi.searchMovies(
-					`https://api.themoviedb.org/3/search/movie?query=${formattedSearchInput}`
-				);
+				const data = await movieApi.searchMovies(formattedSearchInput);
 
 				setMovieData(data.results);
 			} catch (error) {

@@ -12,9 +12,7 @@ export function useMovieData() {
 
 	const fetchMovies = async (page, append = false) => {
 		try {
-			const data = await movieApi.getPage(
-				`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`
-			);
+			const data = await movieApi.getPage(page);
 
 			const enrichedResults = data.results.map((movie) => ({
 				...movie,
