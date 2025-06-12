@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { movieApi } from "./api/movie-api";
 import "./App.css";
 import MovieList from "./components/movie-list";
 import SearchBar from "./components/search-bar";
@@ -13,6 +14,13 @@ export default function App() {
 	const [curPage, setCurPage] = useState("home");
 	const [toggleSidebar, setToggleSidebar] = useState(false);
 
+	const handleClear = useCallback(() => {
+		setSearchInput("");
+		document.getElementById("sort-by-select").value = "default";
+		fetchMovies(1);
+		setNextPage(2);
+	}, []);
+
 	useEffect(() => {
 		fetchMovies(1);
 	}, []);
@@ -25,19 +33,9 @@ export default function App() {
 
 	const fetchMovies = async (page, append = false) => {
 		try {
-			const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
-			const response = await fetch(
-				`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`,
-				{
-					method: "GET",
-					headers: {
-						accept: "application/json",
-						Authorization: `Bearer ${accessToken}`,
-					},
-				}
+			const data = await movieApi.getPage(
+				`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`
 			);
-
-			const data = await response.json();
 
 			const enrichedResults = data.results.map((movie) => ({
 				...movie,
@@ -86,21 +84,12 @@ export default function App() {
 	const handleSearchSubmit = () => {
 		(async () => {
 			try {
-				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
 				setNextPage(1);
 				const formattedSearchInput = searchInput.split(" ").join("+");
-				const response = await fetch(
-					`https://api.themoviedb.org/3/search/movie?query=${formattedSearchInput}`,
-					{
-						method: "GET",
-						headers: {
-							accept: "application/json",
-							Authorization: `Bearer ${accessToken}`,
-						},
-					}
-				);
 
-				const data = await response.json();
+				const data = await movieApi.searchMovies(
+					`https://api.themoviedb.org/3/search/movie?query=${formattedSearchInput}`
+				);
 
 				setMovieData(data.results);
 				setDefaultState(data.results);
@@ -108,13 +97,6 @@ export default function App() {
 				console.error(error);
 			}
 		})();
-	};
-
-	const handleClear = () => {
-		setSearchInput("");
-		document.getElementById("sort-by-select").value = "default";
-		fetchMovies(1);
-		setNextPage(2);
 	};
 
 	return (

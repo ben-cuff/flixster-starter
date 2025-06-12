@@ -1,6 +1,7 @@
 import propTypes from "prop-types";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
+import { movieApi } from "../api/movie-api";
 import GENRES_MAP from "../constants/genres";
 import "./movie-modal.css";
 
@@ -11,34 +12,13 @@ export default function MovieModal({ setToggleModal, movie }) {
 	useEffect(() => {
 		(async () => {
 			try {
-				const accessToken = import.meta.env.VITE_IMDB_ACCESS_TOKEN;
-
-				const [responseDetails, responseVideo] = await Promise.all([
-					fetch(
-						`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`,
-						{
-							method: "GET",
-							headers: {
-								accept: "application/json",
-								Authorization: `Bearer ${accessToken}`,
-							},
-						}
-					),
-					fetch(
-						`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`,
-						{
-							method: "GET",
-							headers: {
-								accept: "application/json",
-								Authorization: `Bearer ${accessToken}`,
-							},
-						}
-					),
-				]);
-
 				const [dataDetails, dataVideo] = await Promise.all([
-					responseDetails.json(),
-					responseVideo.json(),
+					movieApi.getMovieDetails(
+						`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`
+					),
+					movieApi.getMovieVideos(
+						`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`
+					),
 				]);
 
 				if (dataVideo.results && dataVideo.results.length > 0) {
