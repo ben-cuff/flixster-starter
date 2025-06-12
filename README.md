@@ -2,7 +2,7 @@
 
 Submitted by: **Ben Cuff**
 
-Estimated time spent: **6** hours spent in total
+Estimated time spent: **8** hours spent in total
 
 Deployed Application (**required**): [Flixster Deployed Site](https://flixster-starter-plr2.onrender.com/)
 
