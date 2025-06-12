@@ -42,17 +42,17 @@ export function useMovieData() {
 	const handleSortByChange = (event) => {
 		const sortBy = event.target.value;
 
-		if (sortBy == "title") {
+		if (sortBy === "title") {
 			const sortedMovies = [...movieData].sort((a, b) =>
 				a.title.localeCompare(b.title)
 			);
 			setMovieData(sortedMovies);
-		} else if (sortBy == "rating") {
+		} else if (sortBy === "rating") {
 			const sortedMovies = [...movieData].sort(
 				(a, b) => b.vote_average - a.vote_average
 			);
 			setMovieData(sortedMovies);
-		} else if (sortBy == "release") {
+		} else if (sortBy === "release") {
 			const sortedMovies = [...movieData].sort((a, b) => {
 				return (
 					new Date(b.release_date).getTime() -
