@@ -68,7 +68,7 @@ export default function App() {
 					movieData={movieData}
 					setMovieData={setMovieData}
 				/>
-				<button onClick={handleLoadMore}>Load More</button>
+				{curPage === "home" && <button onClick={handleLoadMore}>Load More</button>}
 			</main>
 			<footer className="app-footer"></footer>
 		</div>
