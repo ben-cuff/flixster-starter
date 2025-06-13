@@ -21,8 +21,16 @@ export function useMovieData() {
 			}));
 
 			if (append) {
-				setMovieData((prev) => [...prev, ...enrichedResults]);
-				setDefaultState((prev) => [...prev, ...enrichedResults]);
+				setMovieData((prev) => {
+					const existingIds = new Set(prev.map(movie => movie.id));
+					const uniqueNewMovies = enrichedResults.filter(movie => !existingIds.has(movie.id));
+					return [...prev, ...uniqueNewMovies];
+				});
+				setDefaultState((prev) => {
+					const existingIds = new Set(prev.map(movie => movie.id));
+					const uniqueNewMovies = enrichedResults.filter(movie => !existingIds.has(movie.id));
+					return [...prev, ...uniqueNewMovies];
+				});
 			} else {
 				setMovieData(enrichedResults);
 				setDefaultState(enrichedResults);
@@ -41,6 +49,7 @@ export function useMovieData() {
 		const sortBy = event.target.value;
 
 		if (sortBy === "title") {
+			console.log(movieData);
 			const sortedMovies = [...movieData].sort((a, b) =>
 				a.title.localeCompare(b.title)
 			);
