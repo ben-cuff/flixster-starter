@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { movieApi } from "../api/movie-api";
 
 export function useSearch(setNextPage, setMovieData) {
 	const [searchInput, setSearchInput] = useState("");
 
-	const handleSearchSubmit = () => {
+	const handleSearchSubmit = useCallback(() => {
 		(async () => {
 			try {
 				setNextPage(1);
@@ -17,7 +17,7 @@ export function useSearch(setNextPage, setMovieData) {
 				console.error(error);
 			}
 		})();
-	};
+	}, [searchInput, setNextPage, setMovieData]);
 
 	return { searchInput, setSearchInput, handleSearchSubmit };
 }

@@ -22,13 +22,17 @@ export function useMovieData() {
 
 			if (append) {
 				setMovieData((prev) => {
-					const existingIds = new Set(prev.map(movie => movie.id));
-					const uniqueNewMovies = enrichedResults.filter(movie => !existingIds.has(movie.id));
+					const existingIds = new Set(prev.map((movie) => movie.id));
+					const uniqueNewMovies = enrichedResults.filter(
+						(movie) => !existingIds.has(movie.id)
+					);
 					return [...prev, ...uniqueNewMovies];
 				});
 				setDefaultState((prev) => {
-					const existingIds = new Set(prev.map(movie => movie.id));
-					const uniqueNewMovies = enrichedResults.filter(movie => !existingIds.has(movie.id));
+					const existingIds = new Set(prev.map((movie) => movie.id));
+					const uniqueNewMovies = enrichedResults.filter(
+						(movie) => !existingIds.has(movie.id)
+					);
 					return [...prev, ...uniqueNewMovies];
 				});
 			} else {
@@ -45,32 +49,35 @@ export function useMovieData() {
 		setNextPage((prevPage) => prevPage + 1);
 	};
 
-	const handleSortByChange = (event) => {
-		const sortBy = event.target.value;
+	const handleSortByChange = useCallback(
+		(event) => {
+			const sortBy = event.target.value;
 
-		if (sortBy === "title") {
-			console.log(movieData);
-			const sortedMovies = [...movieData].sort((a, b) =>
-				a.title.localeCompare(b.title)
-			);
-			setMovieData(sortedMovies);
-		} else if (sortBy === "rating") {
-			const sortedMovies = [...movieData].sort(
-				(a, b) => b.vote_average - a.vote_average
-			);
-			setMovieData(sortedMovies);
-		} else if (sortBy === "release") {
-			const sortedMovies = [...movieData].sort((a, b) => {
-				return (
-					new Date(b.release_date).getTime() -
-					new Date(a.release_date).getTime()
+			if (sortBy === "title") {
+				console.log(movieData);
+				const sortedMovies = [...movieData].sort((a, b) =>
+					a.title.localeCompare(b.title)
 				);
-			});
-			setMovieData(sortedMovies);
-		} else {
-			setMovieData(defaultState);
-		}
-	};
+				setMovieData(sortedMovies);
+			} else if (sortBy === "rating") {
+				const sortedMovies = [...movieData].sort(
+					(a, b) => b.vote_average - a.vote_average
+				);
+				setMovieData(sortedMovies);
+			} else if (sortBy === "release") {
+				const sortedMovies = [...movieData].sort((a, b) => {
+					return (
+						new Date(b.release_date).getTime() -
+						new Date(a.release_date).getTime()
+					);
+				});
+				setMovieData(sortedMovies);
+			} else {
+				setMovieData(defaultState);
+			}
+		},
+		[movieData, defaultState]
+	);
 
 	return {
 		movieData,
