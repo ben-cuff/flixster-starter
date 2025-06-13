@@ -100,15 +100,13 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+[Link to Video](https://www.loom.com/share/e37ab29ffd4e4c3399eb92e702d0800a?sid=438c4dd1-58eb-447e-8f73-9729796fa415)
 
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Yes, the labs were useful. I have a decent bit of react experience but they were a nice refresher for sure.
+Yes, the labs were useful. I have a decent bit of react experience but they were a nice refresher for sure. I also learned a lot about making custom hooks for remove logic from components
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
@@ -116,7 +114,7 @@ If I were to go back and change something, I would probably change the way I cha
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+One thing that doesn't work is that likes and watches don't persist after searching. Could be fixed with more state variables or a proper backend
 
 ### Open-source libraries used
 
