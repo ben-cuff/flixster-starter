@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { movieApi } from "../api/movie-api";
 
 export function useMovieData() {
@@ -54,7 +54,6 @@ export function useMovieData() {
 			const sortBy = event.target.value;
 
 			if (sortBy === "title") {
-				console.log(movieData);
 				const sortedMovies = [...movieData].sort((a, b) =>
 					a.title.localeCompare(b.title)
 				);

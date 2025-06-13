@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import "./App.css";
 import MovieList from "./components/movie-list";
 import SearchBar from "./components/search-bar";
@@ -6,6 +6,7 @@ import Sidebar from "./components/sidebar";
 import SortBy from "./components/sort-by";
 import { useMovieData } from "./hooks/use-movie-data";
 import { useSearch } from "./hooks/use-search";
+import useSidebar from "./hooks/use-sidebar";
 
 export default function App() {
 	const {
@@ -21,9 +22,9 @@ export default function App() {
 		setNextPage,
 		setMovieData
 	);
-	
-	const [curPage, setCurPage] = useState("home");
-	const [toggleSidebar, setToggleSidebar] = useState(false);
+
+	const { curPage, handleSidebarClick, toggleSidebar, setToggleSidebar } =
+		useSidebar();
 
 	const handleClear = useCallback(() => {
 		setSearchInput("");
@@ -59,8 +60,7 @@ export default function App() {
 			<Sidebar
 				toggleSidebar={toggleSidebar}
 				curPage={curPage}
-				setToggleSidebar={setToggleSidebar}
-				setCurPage={setCurPage}
+				handleSidebarClick={handleSidebarClick}
 			/>
 			<main>
 				<MovieList

@@ -4,8 +4,7 @@ import "./sidebar.css";
 export default function Sidebar({
 	toggleSidebar,
 	curPage,
-	setCurPage,
-	setToggleSidebar,
+	handleSidebarClick,
 }) {
 	return (
 		<aside
@@ -16,8 +15,7 @@ export default function Sidebar({
 			<nav>
 				<span
 					onClick={() => {
-						setCurPage("home");
-						setToggleSidebar(!toggleSidebar);
+						handleSidebarClick("home");
 					}}
 					style={{
 						textDecoration:
@@ -28,8 +26,7 @@ export default function Sidebar({
 				</span>
 				<span
 					onClick={() => {
-						setCurPage("watched");
-						setToggleSidebar(!toggleSidebar);
+						handleSidebarClick("watched");
 					}}
 					style={{
 						textDecoration:
@@ -41,8 +38,7 @@ export default function Sidebar({
 				</span>
 				<span
 					onClick={() => {
-						setCurPage("liked");
-						setToggleSidebar(!toggleSidebar);
+						handleSidebarClick("liked");
 					}}
 					style={{
 						textDecoration:
@@ -59,6 +55,5 @@ export default function Sidebar({
 Sidebar.propTypes = {
 	toggleSidebar: propTypes.bool.isRequired,
 	curPage: propTypes.string.isRequired,
-	setCurPage: propTypes.func.isRequired,
-	setToggleSidebar: propTypes.func.isRequired,
+	handleSidebarClick: propTypes.func.isRequired,
 };
