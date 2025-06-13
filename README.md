@@ -30,7 +30,7 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
   - [x] Users can click the Clear button. When clicked:
     - [x] Most recent search results are cleared from the text input field and the grid view and all current movies are displayed in a grid view
 - [x] **Design Features**
-  - [ x] Website implements all of the following accessibility features:
+  - [x] Website implements all of the following accessibility features:
     - [x] Semantic HTML
     - [x] [Color contrast](https://webaim.org/resources/contrastchecker/)
     - [x] Alt text for images 
