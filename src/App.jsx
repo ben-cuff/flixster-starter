@@ -4,8 +4,8 @@ import MovieList from "./components/movie-list";
 import SearchBar from "./components/search-bar";
 import Sidebar from "./components/sidebar";
 import SortBy from "./components/sort-by";
-import { useMovieData } from "./hooks/useMovieData";
-import { useSearch } from "./hooks/useSearch";
+import { useMovieData } from "./hooks/use-movie-data";
+import { useSearch } from "./hooks/use-search";
 
 export default function App() {
 	const {

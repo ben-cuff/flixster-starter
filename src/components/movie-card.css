@@ -4,7 +4,8 @@
 	overflow: hidden;
 	margin: 5px;
 	border-radius: 5px;
-	min-width: 300px;
+	min-width: 250px;
+	max-width: 310px;
 }
 
 .movie-card:hover {
